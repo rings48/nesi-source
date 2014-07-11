@@ -194,11 +194,21 @@ int main(void)
         else
             taken = NO; // reset image flag after 4 hour period has passed
 
-        // cycle lights every 12 hours
-        if(timeTemp.hour < 12)
+        // Cycle lights every 12 hours with an medium time where the lights are each at half.
+        if(timeTemp.hour < 1)
+        {
+            ledB.dutycycle(50);
+            ledR.dutycycle(50);
+        }
+        if else(timeTemp.hour < 12)
         {
             ledB.dutycycle(0);
             ledR.dutycycle(100);
+        }
+        if else(timeTemp.hour < 13)
+        {
+            ledB.dutycycle(50);
+            ledR.dutycycle(50);
         }
         else
         {
@@ -208,7 +218,8 @@ int main(void)
 
         //  monitor the water continually
         checkWater();
-    }
+        wait(500);          //Otherwise it runs continually, this adds a small pause.
+        }
 
     return 0;
 }
