@@ -82,6 +82,7 @@ void checkWater(void)
         unsigned valQ4 = resistiveSensors.getQ4(10,100); // get 10 samples, 100ms between samples
 
         // check if chambers have adequate moisture
+        // Logic needs to be more expansive so if one moisture value fails
         if((valQ1+valQ2+valQ3+valQ4)/4 < MIN_MOISTURE_VALUE)
             return;
 
