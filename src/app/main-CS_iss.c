@@ -86,21 +86,6 @@ void checkWater(void)
         if((valQ1+valQ2+valQ3+valQ4)/4 < MIN_MOISTURE_VALUE)
             return;
 
-        openSolenoid();
-        wait(3000);
-        closeSolenoid();
-
-        usb.disconnect();
-        wait(500);
-        char message[64] = {0};
-        sprintf(message, "Watered at %s ", dateTime.getStamp());
-        dataLog.add(message, 0x1234);
-        usb.connect();
-
-        // prevents loop from running indefinitely
-        if(time > 8){
-            return;}
-        time++;
     }
 }
 
@@ -149,19 +134,19 @@ int main(void)
     // Set military time and Date
     DateAndTime timeTemp;
 
-    // time = 12:52:50
-    timeTemp.hour   = 12;
-    timeTemp.minute = 52;
-    timeTemp.second = 50;
+    // time = 00:00:00
+    timeTemp.hour   = 0;
+    timeTemp.minute = 0;
+    timeTemp.second = 0;
 
-    // date = 10/29/13
-    timeTemp.month = NOVEMBER;
-    timeTemp.day   = 17;
-    timeTemp.year  = 13;
+    // date = 10/28/14
+    timeTemp.month = OCTOBER;
+    timeTemp.day   = 28;
+    timeTemp.year  = 14;
 
     dateTime.set(timeTemp);
 
-    Boolean taken = NO;
+    Boolean taken = YES;       //    CHANGE BACK TO NO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     //checkSystems();
 
@@ -202,12 +187,12 @@ int main(void)
             ledB.dutycycle(50);
             ledR.dutycycle(50);
         }
-        if else(timeTemp.hour < 12)
+        else if(timeTemp.hour < 12)
         {
             ledB.dutycycle(0);
             ledR.dutycycle(100);
         }
-        if else(timeTemp.hour < 13)
+        else if(timeTemp.hour < 13)
         {
             ledB.dutycycle(50);
             ledR.dutycycle(50);
@@ -218,10 +203,23 @@ int main(void)
             ledR.dutycycle(0);
         }
 
-        //  monitor the water continually
-        checkWater();
-        wait(500);          //Otherwise it runs continually, this adds a small pause.
+
+        if (timeTemp.hour < 12 && timeTemp.hour > 13 && timeTemp.minute > 0 && timeTemp.minute < 2)
+        {
+            openSolenoid();
+        wait(60000);
+        closeSolenoid();
+
+        usb.disconnect();
+        wait(500);
+        char message[64] = {0};
+        sprintf(message, "Watered at %s ", dateTime.getStamp());
+        dataLog.add(message, 0x1234);
+        usb.connect();
         }
+
+        }
+
 
     return 0;
 }
