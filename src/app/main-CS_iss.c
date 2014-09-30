@@ -146,7 +146,7 @@ int main(void)
 
     dateTime.set(timeTemp);
 
-    Boolean taken = YES;       //    CHANGE BACK TO NO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    Boolean taken = NO;
 
     //checkSystems();
 

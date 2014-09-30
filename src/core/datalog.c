@@ -55,8 +55,27 @@ static Boolean isInitialized(void)
  */
 static void logValue(String label, Uint16 value)
 {
-    // open file
-    dataFile.open("dataLog.txt");
+    char filename[15] = "00001Datalog.txt";
+    char test = ' ';
+    int newfileneeded = 0;
+    int currentLog = 1;
+    
+    while (newfileneeded == 0)
+    {
+        dataFile.open(filename);
+        dataFile.read(test, 1);
+        if (test == ' ')
+        {
+            currentLog = currentLog + 1;
+            filename[0] = (currentLog / 10000) + 48;
+            filename[1] = ((currentLog % 10000) / 1000) + 48;
+            filename[2] = (((currentLog % 10000) % 1000) / 100) + 48;
+            filename[3] = ((((currentLog % 10000) % 1000) % 100) / 10)  + 48;
+            filename[4] = ((((currentLog % 10000) % 1000) % 100) % 10) + 48;
+        }
+        else
+            newfileneeded = 1;
+    }
 
     // determine label length
     int size = 0;
