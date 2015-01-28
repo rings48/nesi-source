@@ -139,9 +139,9 @@ int main(void)
     timeTemp.minute = 0;
     timeTemp.second = 0;
 
-    // date = 10/28/14
+    // date = 10/22/14
     timeTemp.month = OCTOBER;
-    timeTemp.day   = 28;
+    timeTemp.day   = 22;
     timeTemp.year  = 14;
 
     dateTime.set(timeTemp);
@@ -204,7 +204,7 @@ int main(void)
         }
 
 
-        if (timeTemp.hour < 12 && timeTemp.hour > 13 && timeTemp.minute > 0 && timeTemp.minute < 2)
+        if (timeTemp.hour == 18 && timeTemp.minute > 0 && timeTemp.minute < 2)
         {
             openSolenoid();
         wait(60000);

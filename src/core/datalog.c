@@ -25,6 +25,7 @@
 
 #include "datalog.h"
 #include "file.h"
+#include<string.h>
 
 static FileStream dataFile;
 
@@ -55,7 +56,7 @@ static Boolean isInitialized(void)
  */
 static void logValue(String label, Uint16 value)
 {
-    char filename[15] = "00001Datalog.txt";
+    string filename = "00001Datalog.txt";
     char test = ' ';
     int newfileneeded = 0;
     int currentLog = 1;
